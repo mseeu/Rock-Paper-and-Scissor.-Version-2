@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+h1 {
+  background-color: lightgrey;
+  font-family: Helvetica, sans-serif;
+  font-size: 95;
+  text-align: center;
+}
+
+body {
+  background-color: lightgrey;
+  font-family: Helvetica, sans-serif;
+  font-size: 35;
+}
+
+button {
+  margin-left: 300px;
+  margin-right: 150px;
+  margin-bottom: 5px;
+  margin-top: 8px;
+  padding: 1%;
+  font-size: 21px;
+  text-align: center;
+  border-radius: 10px;
+  display: inline-block;
+}
+
+p {
+  background-color: lightblue;
+  text-align: center;
+  font-size: 35px;
+  border-style: dotted;
+}
+
+#printCC {
+  text-align: center;
+  font-size: 25px;
+}
+
+h2 {
+  text-align: center;
+  background-color: lightgreen;
+  font-size: 35px
+}
+
+p1 {
+  font-size: 25px;
+}
+
+#pScore {
+  font-size: 20px;
+}
+
+p2 {
+  font-size: 25px;
+}
+
+#cScore {
+  font-size: 20px;
+}
+
+p3 {
+  font-size: 25px;
+}
+
+#tNumber {
+  font-size: 20px;
+}
+
+p4 {
+  font-size: 35px;
+  background-color: rgb(255, 204, 255);
+}
+
+#rWinner{
+  font-size: 20px;
+}
+
+h3 {
+  background-color: rgb(255, 133, 102);
+  font-size: 35px;
+}
+
+#winner{
+  font-size: 45px;
+}
+
+img{
+  margin-left: 1100px;
+  margin-right: 0px;
+  margin-top: 0px;
+  padding: 50px;
+  margin-bottom: 0px;
+  position: absolute;
+  width: 600px;
+}
+  
+  </style>
+    <title>Rock Paper and Scissors</title>
+    
+    <meta charset="UTF-8"/>
+</head>
+<body>
+<h1>
+ Let's Play a Game!? Rock, Paper or Scissors
+</h1>
+  <button id=paper> Paper </button>
+  <button id=rock> Rock </button>
+  <button id=scissor> Scissor </button>
+
+  <p> Computer Choice </p>
+  <div id=printCC> </div>
+
+  <img src="RPS.jpg">
+
+  <h2> Scores </h2>
+
+  <p1> Player Score </p1>
+  <div id=pScore> 0 </div>
+
+  <p2> Computer Score </p2>
+  <div id=cScore> 0 </div>
+
+  <p3> Ties </p3>
+  <div id=tNumber> 0 </div>
+
+  <p4> Round Winner</p4>
+  <div id=rWinner>
+  </div>
+
+  <h3> The winner of the game is...</h3>
+  <div id=winner></div>
+
+   <script>
+let playerScore = 0;
+let computerScore = 0;
+let tieNumber = 0;
+
+let buttons = document.querySelectorAll('button');
+buttons.forEach((button) => {
+  button.addEventListener('click', (e) => {
+    let playerPlay = button.id.toString();
+    let playerSelection = playerPlay;
+    let computerSelection = computerPlay();
+    let newGame = playRound(playerSelection, computerSelection);
+    getScores(playerScore, computerScore);
+    let getWinner = endGame(playerScore, computerScore);
+  });
+})
+
+function computerPlay() {
+  let computerChoice = Math.floor(Math.random() * 3);
+  if (computerChoice === 0) {
+    document.querySelector('#printCC');
+    printCC.textContent = "Rock";
+    return "rock";
+  } else if (computerChoice === 1) {
+    document.querySelector('#printCC');
+    printCC.textContent = "Paper"
+    return "paper";
+  } else {
+    document.querySelector('#printCC');
+    printCC.textContent = "Scissor"
+    return "scissor";
+  }
+
+}
+
+function playRound(playerSelection, computerSelection) {
+
+  if (playerSelection == "rock" && computerSelection == "rock") {
+    tieNumber++;
+    document.querySelector('#rWinner');
+    rWinner.textContent = "Its a tie!";
+  } else if (playerSelection == "paper" && computerSelection == "paper") {
+    tieNumber++;
+    document.querySelector('#rWinner');
+    rWinner.textContent = "Its a tie!";
+  } else if (playerSelection == "scissor" && computerSelection == "scissor") {
+    tieNumber++;
+    document.querySelector('#rWinner');
+    rWinner.textContent = "Its a tie!";
+  } else if (playerSelection == "rock" && computerSelection == "paper") {
+    computerScore++;
+    document.querySelector('#rWinner');
+    rWinner.textContent = "Computer wins this round";
+  } else if (playerSelection == "rock" && computerSelection == "scissor") {
+    playerScore++;
+    document.querySelector('#rWinner');
+    rWinner.textContent = "Player wins this round";
+  } else if (playerSelection == "paper" && computerSelection == "rock") {
+    playerScore++;
+    document.querySelector('#rWinner');
+    rWinner.textContent = "Player wins this round";
+  } else if (playerSelection == "paper" && computerSelection == "scissor") {
+    computerScore++;
+    document.querySelector('#rWinner');
+    rWinner.textContent = "Computer wins this round";
+  } else if (playerSelection == "scissor" && computerSelection == "rock") {
+    computerScore++;
+    document.querySelector('#rWinner');
+    rWinner.textContent = "Computer wins this round";
+  } else if (playerSelection == "scissor" && computerSelection == "paper") {
+    playerScore++;
+    document.querySelector('#rWinner');
+    rWinner.textContent = "Player wins this round";
+  } else {
+    return "Groselha verde";
+  }
+}
+
+function getScores() {
+  let playerResults = document.querySelector('#pScore');
+  pScore.textContent = `${playerScore}`;
+  let computerResults = document.querySelector('#cScore');
+  cScore.textContent = `${computerScore}`;
+  let ties = document.querySelector('#tNumber');
+  tNumber.textContent = `${tieNumber}`;
+}
+
+function endGame(playerScore, computerScore) {
+  if (playerScore == 5) {
+    document.querySelector('#winner');
+    winner.textContent = "the Player!";
+  } else if (computerScore == 5) {
+    document.querySelector('#winner');
+    winner.textContent = "the Computer!";
+  } else {}
+}
+
+
+</script>
+</body>
+</html>
